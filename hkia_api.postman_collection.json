@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "hkia-api-collection",
+		"name": "HKIA API - Session Management",
+		"description": "Session API 測試集合",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "建立 Session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"from\": \"user@example.com\",\n  \"to\": \"recipient@example.com\",\n  \"message\": 1,\n  \"lang\": \"zh\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/sessions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sessions"
+					]
+				},
+				"description": "建立一個新的 session，需要提供 from、to 和 message (1, 2, 或 3)。lang 為可選參數，預設為 'zh'。返回 session_id, share_url, lang, from, to"
+			},
+			"response": []
+		},
+		{
+			"name": "標記 Session 為已發送",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"session_id\": \"{{session_id}}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/sessions/sent",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sessions",
+						"sent"
+					]
+				},
+				"description": "透過 session_id 標記該 session 為已發送 (sent = 1)"
+			},
+			"response": []
+		},
+		{
+			"name": "標記 Session 為已使用",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/?session_id={{session_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "{{session_id}}",
+							"description": "要標記為已使用的 session ID"
+						}
+					]
+				},
+				"description": "透過 session_id 查詢並標記該 session 為已使用 (used = 1)。返回 from, to, message, lang, sent, used"
+			},
+			"response": []
+		},
+		{
+			"name": "建立 Session (message = 2)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"from\": \"user@example.com\",\n  \"to\": \"recipient@example.com\",\n  \"message\": 2,\n  \"lang\": \"en\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/sessions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sessions"
+					]
+				},
+				"description": "建立一個 message = 2 的 session"
+			},
+			"response": []
+		},
+		{
+			"name": "建立 Session (message = 3)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"from\": \"user@example.com\",\n  \"to\": \"recipient@example.com\",\n  \"message\": 3,\n  \"lang\": \"zh\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/sessions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sessions"
+					]
+				},
+				"description": "建立一個 message = 3 的 session"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "session_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
+
