@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const sessionRoutes = require('./routes/sessionRoutes');
@@ -7,6 +8,18 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// CORS 設定 - 暫時允許所有來源
+// TODO: 之後有 domain 時，可以改為：
+// app.use(cors({
+//   origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
+//   credentials: true
+// }));
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 app.use(sessionRoutes);
@@ -27,4 +40,5 @@ bootstrap().catch((err) => {
   console.error('應用程式啟動失敗', err);
   process.exit(1);
 });
+
 
