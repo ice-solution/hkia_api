@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const Session = require('../models/session');
 
-const ALLOWED_MESSAGES = [1, 2, 3];
+const ALLOWED_MESSAGES = [1, 2, 3, 4, 5];
 
 const createSession = async (req, res, next) => {
   try {
@@ -16,7 +16,7 @@ const createSession = async (req, res, next) => {
     const numericMessage = Number(message);
     if (!ALLOWED_MESSAGES.includes(numericMessage)) {
       return res.status(400).json({
-        message: 'message 僅能為 1、2、3 其中之一',
+        message: 'message 僅能為 1、2、3、4、5 其中之一',
       });
     }
 
